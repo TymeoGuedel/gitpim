@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom react-calendar styles */
+
+.react-calendar {
+    @apply bg-white rounded-xl shadow-md p-4 text-sm w-full;
+  }
+  .react-calendar__navigation {
+    @apply flex justify-between items-center mb-2;
+  }
+  .react-calendar__navigation button {
+    @apply text-blue-600 font-bold px-2 py-1 hover:bg-blue-100 rounded;
+  }
+  .react-calendar__tile {
+    @apply rounded-lg p-2 hover:bg-blue-50 transition;
+  }
+  .react-calendar__tile--now {
+    @apply bg-blue-100;
+  }
+  .react-calendar__tile--active {
+    @apply bg-blue-500 text-white;
+  }
+  .react-calendar__tile--rangeStart,
+  .react-calendar__tile--rangeEnd {
+    @apply bg-blue-600 text-white;
+  }
+
+  .recap-container {
+    padding: 2rem;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+  }
+  
+  .calendar-wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+  }
+  
+  .event-list {
+    display: flex;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  
+  .event-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #3b82f6;
+    border-radius: 50%;
+    margin: 0 2px;
+  }
+  
+  
