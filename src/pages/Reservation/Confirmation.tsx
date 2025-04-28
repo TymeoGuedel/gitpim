@@ -1,35 +1,43 @@
-import { useLocation, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function Confirmation() {
-  const location = useLocation();
-  const data = location.state;
+const Confirmation = () => {
+  const [bungalow, setBungalow] = useState('');
+  const [date, setDate] = useState('');
+  const navigate = useNavigate();
 
-  if (!data) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-center text-gray-600">
-        <div>
-          <h2 className="text-xl font-semibold mb-4">Aucune réservation trouvée</h2>
-          <Link to="/" className="text-blue-600 hover:underline">Retour à l'accueil</Link>
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    const selectedBungalow = localStorage.getItem('bungalow');
+    const selectedDate = localStorage.getItem('date');
+    if (!selectedBungalow || !selectedDate) {
+      navigate('/reservation/bungalow');
+    } else {
+      setBungalow(selectedBungalow);
+      setDate(selectedDate);
+    }
+  }, [navigate]);
+
+  const handleConfirm = () => {
+    navigate('/reservation/recapitulatif');
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-[#F4F1EA]">
-      <div className="bg-white p-8 rounded-xl shadow-lg max-w-xl w-full text-center">
-        <h1 className="text-2xl font-bold text-green-600 mb-4">✅ Réservation Confirmée</h1>
-        <p className="text-gray-700 mb-2"><strong>Numéro :</strong> {data.num}</p>
-        <p className="text-gray-700 mb-2"><strong>Date :</strong> {data.date}</p>
-        <p className="text-gray-700 mb-2"><strong>Nombre de personnes :</strong> {data.people}</p>
-        {data.type && <p className="text-gray-700 mb-2"><strong>Type :</strong> {data.type}</p>}
-        {data.chevaux && (
-          <p className="text-gray-700 mb-2 whitespace-pre-line">
-            <strong>Chevaux attribués :</strong> {data.chevaux}
-          </p>
-        )}
-        <Link to="/" className="mt-4 inline-block text-blue-600 hover:underline">Retour à l'accueil</Link>
+    <div className="p-8 max-w-xl mx-auto text-center">
+      <h1 className="text-3xl font-bold mb-6">🎉 Confirmation de votre réservation</h1>
+
+      <div className="bg-white shadow p-6 rounded-lg text-left space-y-4">
+        <p><strong>Bungalow choisi :</strong> {bungalow === 'mer' ? 'Vue Mer (2 personnes)' : 'Jardin (4 personnes)'}</p>
+        <p><strong>Date sélectionnée :</strong> {date}</p>
       </div>
+
+      <button
+        onClick={handleConfirm}
+        className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
+      >
+        Confirmer et continuer
+      </button>
     </div>
   );
-}
+};
+
+export default Confirmation;
