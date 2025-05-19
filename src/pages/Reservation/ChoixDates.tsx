@@ -22,7 +22,7 @@ export default function ChoixDates() {
     localStorage.setItem('reservationArrivee', arrivalDate);
     localStorage.setItem('reservationDepart', departureDate);
     localStorage.setItem('reservationPeople', people.toString());
-    navigate('/reservation/recapitulatif');
+    navigate('/reservation/confirmation');
   };
 
   return (

@@ -1,4 +1,3 @@
-// 📁 src/components/KayakSelection.tsx
 import { useState, useEffect } from 'react';
 
 const kayaksDisponibles = [
@@ -17,6 +16,18 @@ interface Props {
 export default function KayakSelection({ personnes, onConfirm }: Props) {
   const [selected, setSelected] = useState<string[]>([]);
   const [totalPlaces, setTotalPlaces] = useState(0);
+  const [kayaksIndisponibles, setKayaksIndisponibles] = useState<string[]>([]);
+
+  const date = localStorage.getItem('date') || '';
+  const horaire = localStorage.getItem('horaire') || '';
+
+  useEffect(() => {
+    const reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+    const usedKayaks = reservations
+      .filter((r: any) => r.date === date && r.horaire === horaire && r.activity === 'kayak')
+      .flatMap((r: any) => r.kayaks || []);
+    setKayaksIndisponibles(usedKayaks);
+  }, [date, horaire]);
 
   useEffect(() => {
     const total = selected
@@ -26,6 +37,7 @@ export default function KayakSelection({ personnes, onConfirm }: Props) {
   }, [selected]);
 
   const toggleSelection = (id: string) => {
+    if (kayaksIndisponibles.includes(id)) return;
     if (selected.includes(id)) {
       setSelected(selected.filter(k => k !== id));
     } else {
@@ -44,19 +56,23 @@ export default function KayakSelection({ personnes, onConfirm }: Props) {
       <h2 className="text-2xl font-bold text-center text-blue-600">Choisissez vos kayaks 🚣</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {kayaksDisponibles.map(k => (
-          <div
-            key={k.id}
-            onClick={() => toggleSelection(k.id)}
-            className={`cursor-pointer border rounded-lg p-4 flex items-center justify-between shadow-sm transition
-              ${selected.includes(k.id) ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:bg-gray-100'}`}
-          >
-            <div className="text-lg">
-              {k.type === 'double' ? '🚣 Kayak Double' : '🛶 Kayak Simple'} — {k.id}
+        {kayaksDisponibles.map(k => {
+          const isSelected = selected.includes(k.id);
+          const isUsed = kayaksIndisponibles.includes(k.id);
+          return (
+            <div
+              key={k.id}
+              onClick={() => toggleSelection(k.id)}
+              className={`cursor-pointer border rounded-lg p-4 flex items-center justify-between shadow-sm transition
+                ${isUsed ? 'bg-gray-200 cursor-not-allowed opacity-60' : isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:bg-gray-100'}`}
+            >
+              <div className="text-lg">
+                {k.type === 'double' ? '🚣 Kayak Double' : '🛶 Kayak Simple'} — {k.id}
+              </div>
+              <div className="text-sm text-gray-600">{k.places} place(s)</div>
             </div>
-            <div className="text-sm text-gray-600">{k.places} place(s)</div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="text-center mt-4 font-medium text-gray-700">

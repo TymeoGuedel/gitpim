@@ -6,12 +6,14 @@ import Randonnee from './pages/Randonnee';
 import Kayak from './pages/Kayak';
 import Garderie from './pages/Garderie';
 import Bagne from './pages/Bagne';
-import Confirmation from './pages/Confirmation';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ChoixBungalow from './pages/Reservation/ChoixBungalow';
 import ChoixDates from './pages/Reservation/ChoixDates';
 import Recapitulatif from './pages/Reservation/Recapitulatif';
+import Confirmation from './pages/Reservation/Confirmation';
+import ChoixReservation from './pages/Reservation/ChoixReservation';
+import ChoixActivites from './pages/Reservation/ChoixActivites';
 
 
 
@@ -31,9 +33,11 @@ function App() {
           <Route path="/garderie" element={<Garderie />} />
           <Route path="/reservation/choix-bungalow" element={<ChoixBungalow />} />
           <Route path="/bagne" element={<Bagne />} />
-          <Route path="/confirmation" element={<Confirmation />} />
           <Route path="/reservation/date" element={<ChoixDates />} />
           <Route path="/reservation/recapitulatif" element={<Recapitulatif />} />
+          <Route path="/reservation/confirmation" element={<Confirmation />} />
+          <Route path="/reservation" element={<ChoixReservation />} /> 
+          <Route path="/activites" element={<ChoixActivites />} /> 
         </Routes>
       </main>
       <Footer />

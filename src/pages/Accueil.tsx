@@ -19,7 +19,7 @@ function Accueil() {
     <p className="text-lg drop-shadow mb-6">
       Découvrez nos bungalows, activités en pleine nature, et un cadre idyllique pour toute la famille.
     </p>
-    <Link to="/reservation/choix-bungalow">
+    <Link to="/reservation">
       <button className="bg-[#3DB2FF] hover:bg-blue-600 text-white px-6 py-3 rounded-xl transition shadow">
         Réserver maintenant
       </button>

@@ -1,19 +1,37 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { genererNumeroReservation } from '../../utils/reservation.js';
 
 const Confirmation = () => {
   const [bungalow, setBungalow] = useState('');
-  const [date, setDate] = useState('');
+  const [dateArrivee, setDateArrivee] = useState('');
+  const [dateDepart, setDateDepart] = useState('');
+  const [personnes, setPersonnes] = useState('');
+  const [numeroReservation, setNumeroReservation] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
-    const selectedBungalow = localStorage.getItem('bungalow');
-    const selectedDate = localStorage.getItem('date');
-    if (!selectedBungalow || !selectedDate) {
-      navigate('/reservation/bungalow');
+    const storedBungalow = localStorage.getItem('bungalow');
+    const storedArrivee = localStorage.getItem('dateArrivee');
+    const storedDepart = localStorage.getItem('dateDepart');
+    const storedPersonnes = localStorage.getItem('personnes');
+    const storedNumero = localStorage.getItem('numeroReservation');
+
+    if (!storedBungalow || !storedArrivee || !storedDepart || !storedPersonnes) {
+      navigate('/reservation');
     } else {
-      setBungalow(selectedBungalow);
-      setDate(selectedDate);
+      setBungalow(storedBungalow);
+      setDateArrivee(storedArrivee);
+      setDateDepart(storedDepart);
+      setPersonnes(storedPersonnes);
+
+      if (storedNumero) {
+        setNumeroReservation(storedNumero);
+      } else {
+        const nouveau = genererNumeroReservation('chambre');
+        setNumeroReservation(nouveau);
+        localStorage.setItem('numeroReservation', nouveau);
+      }
     }
   }, [navigate]);
 
@@ -26,8 +44,11 @@ const Confirmation = () => {
       <h1 className="text-3xl font-bold mb-6">🎉 Confirmation de votre réservation</h1>
 
       <div className="bg-white shadow p-6 rounded-lg text-left space-y-4">
-        <p><strong>Bungalow choisi :</strong> {bungalow === 'mer' ? 'Vue Mer (2 personnes)' : 'Jardin (4 personnes)'}</p>
-        <p><strong>Date sélectionnée :</strong> {date}</p>
+        <p><strong>Bungalow :</strong> {bungalow === 'mer' ? 'Vue Mer (2 pers max)' : 'Jardin (4 pers max)'}</p>
+        <p><strong>Nombre de personnes :</strong> {personnes}</p>
+        <p><strong>Date d’arrivée :</strong> {dateArrivee}</p>
+        <p><strong>Date de départ :</strong> {dateDepart}</p>
+        <p><strong>Numéro de réservation :</strong> <span className="font-mono text-blue-600">{numeroReservation}</span></p>
       </div>
 
       <button

@@ -19,7 +19,7 @@ export default function ChambresSection() {
             <p className="text-gray-700 mb-4">
               5 bungalows pour 2 personnes, vue imprenable sur le lagon, parfait pour un séjour en couple ou en solo.
             </p>
-            <Link to="/reservation/choix-bungalow">
+            <Link to="/reservation">
 
 
               <button className="bg-[#3DB2FF] hover:bg-blue-600 text-white px-5 py-2 rounded-lg transition">
@@ -37,7 +37,7 @@ export default function ChambresSection() {
             <p className="text-gray-700 mb-4">
               10 bungalows pour 4 personnes nichés dans un cadre verdoyant, idéal pour les familles ou groupes d’amis.
             </p>
-            <Link to="/reservation/choix-bungalow">
+            <Link to="/reservation">
 
 
               <button className="bg-[#3DB2FF] hover:bg-blue-600 text-white px-5 py-2 rounded-lg transition">
