@@ -1,0 +1,42 @@
+
+/*! FullCalendar Basic Styling */
+.fc {
+  direction: ltr;
+  text-align: left;
+}
+.fc-toolbar-title {
+  font-size: 1.25rem;
+  margin: 0;
+}
+.fc-button {
+  margin: 0 0.25em;
+  padding: 0.25em 0.75em;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+.fc-button-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: white;
+}
+.fc-event {
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+  padding: 2px 4px;
+  font-size: 0.85rem;
+  border-radius: 3px;
+}
+.fc-daygrid-event-dot {
+  display: none;
+}
+.fc-daygrid-event {
+  margin-top: 2px;
+}
+.fc-col-header-cell-cushion,
+.fc-daygrid-day-number {
+  padding: 2px 4px;
+  display: inline-block;
+}
